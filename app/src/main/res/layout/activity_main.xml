@@ -32,18 +32,21 @@
             android:id="@+id/rockButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClickRockButton"
             android:text="@string/rock" />
 
         <Button
             android:id="@+id/paperButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClickPaperButton"
             android:text="@string/paper" />
 
         <Button
             android:id="@+id/scissorsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClickScissorsButton"
             android:text="@string/scissors" />
 
         <TextView
