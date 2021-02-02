@@ -8,43 +8,27 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int playersScore;
+    private int compsScore;
+    private Enum playersWeapon;
+    private Enum compsWeapon;
+    private String gameResult;
+    private Enum computersWeapon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        playersScore = 0;
+        compsScore = 0;
+        gameResult = "";
     }
 
-    private int playersScore;
-    private int compsScore;
-    private String playersWeapon;
-    private String compsWeapon;
-    private String gameResult;
-
-
     public void onClickRockButton(View view) {
-        playersWeapon = "Rock";
-        int compChoice = 1 + (int)(Math.random() * ((3 - 1) + 1));
+        playersWeapon = Weapon.ROCK;
 
-        if (compChoice == 1) {
-            compsWeapon = "Rock";
-        } else if (compChoice == 2) {
-            compsWeapon = "Paper";
-        } else {
-            compsWeapon = "Scissors";
-        }
+        compsWeapon = getCompsWeapon();
 
         if (rockPaperScissorsGo(playersWeapon, compsWeapon) == "Player") {
             playersScore++;
@@ -61,30 +45,23 @@ public class MainActivity extends AppCompatActivity {
         TextView score = (TextView)findViewById(R.id.score);
         TextView result = (TextView)findViewById(R.id.result);
 
-        computerChoice.setText("Computer's Weapon: " + compsWeapon);
-        playerChoice.setText("Player's Weapon: " + playersWeapon);
+        computerChoice.setText("Computer's Weapon: " + compsWeapon.toString());
+        playerChoice.setText("Player's Weapon: " + playersWeapon.toString());
         score.setText("Player's Score: " + String.valueOf(playersScore) + ", Computer's Score: " + String.valueOf(compsScore));
         result.setText(gameResult);
     }
 
     public void onClickPaperButton(View view) {
-        playersWeapon = "Paper";
-        int compChoice = 1 + (int)(Math.random() * ((3 - 1) + 1));
+        playersWeapon = Weapon.PAPER;
 
-        if (compChoice == 1) {
-            compsWeapon = "Rock";
-        } else if (compChoice == 2) {
-            compsWeapon = "Paper";
-        } else {
-            compsWeapon = "Scissors";
-        }
+        compsWeapon = getCompsWeapon();
 
         if (rockPaperScissorsGo(playersWeapon, compsWeapon) == "Player") {
             playersScore++;
-            gameResult = "Player Wins...Paper covers Rock!";
+            gameResult = "Player Wins...Rock blunts Scissors!";
         } else if (rockPaperScissorsGo(playersWeapon, compsWeapon) == "Computer") {
             compsScore++;
-            gameResult = "Computer Wins...Scissors cuts through Paper!";
+            gameResult = "Computer Wins...Paper covers Rock!";
         } else {
             gameResult = "It's a tie!";
         }
@@ -94,23 +71,16 @@ public class MainActivity extends AppCompatActivity {
         TextView score = (TextView)findViewById(R.id.score);
         TextView result = (TextView)findViewById(R.id.result);
 
-        computerChoice.setText("Computer's Weapon: " + compsWeapon);
-        playerChoice.setText("Player's Weapon: " + playersWeapon);
+        computerChoice.setText("Computer's Weapon: " + compsWeapon.toString());
+        playerChoice.setText("Player's Weapon: " + playersWeapon.toString());
         score.setText("Player's Score: " + String.valueOf(playersScore) + ", Computer's Score: " + String.valueOf(compsScore));
         result.setText(gameResult);
     }
 
     public void onClickScissorsButton(View view) {
-        playersWeapon = "Scissors";
-        int compChoice = 1 + (int)(Math.random() * ((3 - 1) + 1));
+        playersWeapon = Weapon.SCISSORS;
 
-        if (compChoice == 1) {
-            compsWeapon = "Rock";
-        } else if (compChoice == 2) {
-            compsWeapon = "Paper";
-        } else {
-            compsWeapon = "Scissors";
-        }
+        compsWeapon = getCompsWeapon();
 
         if (rockPaperScissorsGo(playersWeapon, compsWeapon) == "Player") {
             playersScore++;
@@ -127,28 +97,42 @@ public class MainActivity extends AppCompatActivity {
         TextView score = (TextView)findViewById(R.id.score);
         TextView result = (TextView)findViewById(R.id.result);
 
-        computerChoice.setText("Computer's Weapon: " + compsWeapon);
-        playerChoice.setText("Player's Weapon: " + playersWeapon);
+        computerChoice.setText("Computer's Weapon: " + compsWeapon.toString());
+        playerChoice.setText("Player's Weapon: " + playersWeapon.toString());
         score.setText("Player's Score: " + String.valueOf(playersScore) + ", Computer's Score: " + String.valueOf(compsScore));
         result.setText(gameResult);
     }
 
-    public String rockPaperScissorsGo(String playersChoice, String computersChoice) {
+    public Enum getCompsWeapon() {
+        int compChoice = 1 + (int)(Math.random() * ((3 - 1) + 1));
+
+        if (compChoice == 1) {
+            computersWeapon = Weapon.ROCK;
+        } else if (compChoice == 2) {
+            computersWeapon = Weapon.PAPER;
+        } else {
+            computersWeapon = Weapon.SCISSORS;
+        }
+
+        return computersWeapon;
+    }
+
+    public String rockPaperScissorsGo(Enum playersChoice, Enum computersChoice) {
         String battleResult = "";
 
         if (playersChoice == computersChoice) {
             battleResult = "Tie";
-        } else if (playersChoice == "Rock" && computersChoice == "Paper") {
+        } else if (playersChoice == Weapon.ROCK && computersChoice == Weapon.PAPER) {
             battleResult = "Computer";
-        } else if (playersChoice == "Rock" && computersChoice == "Scissors") {
+        } else if (playersChoice == Weapon.ROCK && computersChoice == Weapon.SCISSORS) {
             battleResult = "Player";
-        } else if (playersChoice == "Paper" && computersChoice == "Scissors") {
+        } else if (playersChoice == Weapon.PAPER && computersChoice == Weapon.SCISSORS) {
             battleResult = "Computer";
-        } else if (playersChoice == "Paper" && computersChoice == "Rock") {
+        } else if (playersChoice == Weapon.PAPER && computersChoice == Weapon.ROCK) {
             battleResult = "Player";
-        } else if (playersChoice == "Scissors" && computersChoice == "Rock") {
+        } else if (playersChoice == Weapon.SCISSORS && computersChoice == Weapon.ROCK) {
             battleResult = "Computer";
-        } else if (playersChoice == "Scissors" && computersChoice == "Paper") {
+        } else if (playersChoice == Weapon.SCISSORS && computersChoice == Weapon.PAPER) {
             battleResult = "Player";
         }
 
