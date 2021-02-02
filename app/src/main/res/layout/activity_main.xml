@@ -25,26 +25,26 @@
             android:layout_width="397dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Welcome to Rock-Paper-Scissors!\nPlease choose your weapon:"
+            android:text="@string/welcome_to_rock_paper_scissors_nplease_choose_your_weapon"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/rockButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rock!" />
+            android:text="@string/rock" />
 
         <Button
             android:id="@+id/paperButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Paper!" />
+            android:text="@string/paper" />
 
         <Button
             android:id="@+id/scissorsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Scissors!" />
+            android:text="@string/scissors" />
 
         <TextView
             android:id="@+id/score"
